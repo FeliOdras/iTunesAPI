@@ -10,6 +10,9 @@ class TrackList {
     // Represents the currently displayed data
     this.viewData = data
 
+
+    // sort by price
+    this.sortPricing()
     // Show stuff
     this.render()
   }
@@ -31,7 +34,7 @@ class TrackList {
         </section>
       `
     ).join("")
-    return musicList;
+    return musicList
 
     // For now we just assume that all data is there and that it is
     // from datatype string
@@ -40,6 +43,11 @@ class TrackList {
 
   sortPricing() {
     // TODO: Create a Methode to sort by pricing
+    // const priceList = music.map(track =>
+    //   track.trackPrice
+    // )
+    music.sort((a, b) => a.trackPrice - b.trackPrice)
+    console.log(music)
   }
 
   render() {
