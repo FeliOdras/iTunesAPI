@@ -21,6 +21,18 @@ class TrackList {
 
   template(music) {
     // Mapping over data and returning HTML String
+    const musicList = music.map(track =>
+      `
+        <section class="row">
+          <div class="trackArtwork"><img src="${track.artworkUrl100}" alt="${track.trackName}"></div>
+          <div class="trackTitle"> ${track.trackName} </div>
+          <div class="artistName">${track.artistName} </div>
+          <div class="trackPrice">${track.trackPrice} </div>
+        </section>
+      `
+    ).join("")
+    return musicList;
+
     // For now we just assume that all data is there and that it is
     // from datatype string
     // TODO: create a template function
