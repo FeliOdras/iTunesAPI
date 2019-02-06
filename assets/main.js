@@ -43,11 +43,7 @@ class TrackList {
 
   sortPricing() {
     // TODO: Create a Methode to sort by pricing
-    // const priceList = music.map(track =>
-    //   track.trackPrice
-    // )
     music.sort((a, b) => a.trackPrice - b.trackPrice)
-    console.log(music)
   }
 
   render() {
