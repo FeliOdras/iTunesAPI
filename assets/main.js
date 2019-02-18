@@ -81,7 +81,4 @@ filterByArtistName = () => {
   );
   const filteredTrackListByArtistName = new TrackList("#tracks", filteredArtist);
   return filteredTrackListByArtistName;
-  console.log(filteredTrackListByArtistName)
-  // const filteredArtistTable = createSongTable(filteredArtist);
-  // output.innerHTML = fullTable;
 };
