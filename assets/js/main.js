@@ -30,7 +30,7 @@ class TrackList {
       .map(track => {
         return `
         <div class="row">
-          <div><img src="${track.artworkUrl100}"</img></div>
+          <div><img src="${track.artworkUrl60}"</img></div>
           <div>${track.trackName}</div>
           <div>${track.artistName}</div>
           <div>${track.trackPrice}</div>
@@ -52,7 +52,7 @@ class TrackList {
 
   defaultTemplate() {
     return `
-    <div>Search to see music</div>
+    <div class="defaultOutput">Search to see tracklist</div>
     `
   }
 
