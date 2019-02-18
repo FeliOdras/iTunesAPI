@@ -9,7 +9,6 @@ class TrackList {
     this.data = data;
     // Represents the currently displayed data
     this.viewData = data;
-    this.sortArtist();
     // Show stuff
     this.render();
   }
@@ -24,7 +23,7 @@ class TrackList {
     const musicList = music
       .map(
         track =>
-          `
+        `
         <section class="row">
           <div class="trackArtwork"><img src="${track.artworkUrl100}" alt="${
             track.trackName
@@ -41,17 +40,6 @@ class TrackList {
     // For now we just assume that all data is there and that it is
     // from datatype string
     // TODO: create a template function
-  }
-
-  sortPricing() {
-    // TODO: Create a Methode to sort by pricing
-    music.sort((a, b) => a.trackPrice - b.trackPrice);
-  }
-
-  sortArtist() {
-    music.sort((a, b) =>
-      a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0
-    );
   }
 
   render() {
@@ -72,3 +60,28 @@ class TrackList {
 }
 
 const myTrackList = new TrackList("#tracks", music);
+sortByArtist = () => {
+  const trackListByArtist = new TrackList("#tracks", music);
+  music.sort((a, b) =>
+    a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0
+  );
+  return trackListByArtist;
+}
+
+sortByPrice = () => {
+  const trackListByPrice = new TrackList("#tracks", music);
+  music.sort((a, b) => a.trackPrice - b.trackPrice);
+  return trackListByPrice;
+}
+
+filterByArtistName = () => {
+  const artistNameInput = document.querySelector(".filterArtist").value;
+  const filteredArtist = music.filter(
+    selectedArtist => artistNameInput === selectedArtist.artistName
+  );
+  const filteredTrackListByArtistName = new TrackList("#tracks", filteredArtist);
+  return filteredTrackListByArtistName;
+  console.log(filteredTrackListByArtistName)
+  // const filteredArtistTable = createSongTable(filteredArtist);
+  // output.innerHTML = fullTable;
+};
