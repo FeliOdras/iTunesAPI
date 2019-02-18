@@ -1,0 +1,23 @@
+:root {
+    font-size: 16px;
+}
+
+body {
+    background-color: #111;
+    color: #aaa;
+    font-family: Lato, sans-serif;
+    font-size: .8rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row>* {
+    flex: 1;
+}
+
+.row>img {
+    width: auto;
+}
