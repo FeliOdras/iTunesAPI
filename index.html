@@ -6,16 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Sound of silence</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
   <div id="sortAndFilter">
-    Search Music: <input type="text" name="musicSearch" id="musicSearch" class="musicSearch" oninput='defineSearch()'>
+    <input type="text" name="musicSearch" id="musicSearch" class="musicSearch" placeholder="Search Music">
+    <input type="text" name="listFilter" id="listFilter" class="listFilter" placeholder="Filter Track List">
   </div>
   <div id="tracks">
-
   </div>
+
+  <div id="play"></div>
   <script src="./assets/js/main.js"></script>
 </body>
 

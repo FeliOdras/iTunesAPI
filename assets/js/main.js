@@ -4,17 +4,18 @@
 
 class TrackList {
   // Creating our Class
-  constructor(domSelector) {
+  constructor(domSelector, search) {
     // Getting a domelement
     this.container = document.querySelector(domSelector)
-    // Store my data
-    this.data = null
-    // Represents the currently displayed data
-    this.viewData = null
-
-    // Show stuff
-    this.render()
+    // Search
+    this.search = search
+    // Data source
+    this.url = `https://dci-fbw12-search-itunes.now.sh/?term=`
+    this.media = "music"
+    // Search Tracks
+    this.searchTracks()
   }
+
 
   modViewData(newData) {
     this.viewData = newData
@@ -34,7 +35,10 @@ class TrackList {
           <div>${track.trackName}</div>
           <div>${track.artistName}</div>
           <div>${track.trackPrice}</div>
-          <div><audio controls src="${track.previewUrl}" ></audio></div>
+          <div>
+            <i class="fas fa-play" id="${track.trackId}"></i>
+            <i class="fas fa-pause" id="${track.trackId}"></i>
+          </div>
         </div>
     `
       })
@@ -46,41 +50,142 @@ class TrackList {
     this.data = data
     // Represents the currently displayed data
     this.viewData = data
-
     this.render()
   }
 
-  defaultTemplate() {
-    return `
-    <div class="defaultOutput">Search to see tracklist</div>
-    `
+  // Search
+  searchTracks() {
+    const searchUrl = `${this.url}${this.search}&media=${this.media}`
+    fetch(searchUrl)
+      .then(response => {
+        return response.json()
+      }).then((data) => {
+        this.data = data.results
+        this.modViewData(data.results)
+      })
+      .catch(function (err) {
+        console.log("Something went wrong!", err)
+      })
   }
 
-  sortPricing() {
-    // TODO: Create a Methode to sort by pricing
+  // Filter
+  filterTracks(search) {
+    const newData = this.data.filter(track => track.artistName.toLowerCase().includes(search.toLowerCase()) || track.trackName.toLowerCase().includes(search.toLowerCase()))
+    this.modViewData(newData)
   }
+
+  sortByPriceLowestFirst = () => {
+    myTrackList.viewData.sort((a, b) => a.trackPrice - b.trackPrice);
+    myTrackList.render()
+  }
+
+  sortByPriceHighestFirst = () => {
+    myTrackList.viewData.sort((a, b) => b.trackPrice - a.trackPrice);
+    myTrackList.render()
+  }
+
+  sortByTrackTitleAToZ = () => {
+    myTrackList.viewData.sort((a, b) => a.trackName > b.trackName ? 1 : a.trackName < b.trackName ? -1 : 0);
+    myTrackList.render()
+  }
+
+  sortByTrackTitleZToA = () => {
+    myTrackList.viewData.sort((a, b) => b.trackName > a.trackName ? 1 : b.trackName < a.trackName ? -1 : 0);
+    myTrackList.render()
+  }
+
+  sortByArtistNameAToZ = () => {
+    myTrackList.viewData.sort((a, b) => a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0);
+    myTrackList.render()
+  }
+
+  sortByArtistNameZToA = () => {
+    myTrackList.viewData.sort((a, b) => b.artistName > a.artistName ? 1 : b.artistName < a.artistName ? -1 : 0);
+    myTrackList.render()
+  }
+
+  addEventListeners() {
+
+    // Search
+    document.querySelector("#musicSearch").onkeyup =
+      event => {
+        console.log(`Searching: ${event.target.value}`)
+        this.search = (event.target.value !== "" ? event.target.value : this.search)
+        this.searchTracks()
+      }
+
+    document.querySelector("#listFilter").onkeyup =
+      event => {
+        console.log(`Filtering: ${event.target.value}`)
+        this.filterTracks(event.target.value)
+      }
+
+    // Sort 
+    document.querySelector("#sortByTitleAToZ").addEventListener("click", () => this.sortByTrackTitleAToZ())
+    document.querySelector("#sortByTitleZToA").addEventListener("click", () => this.sortByTrackTitleZToA())
+    document.querySelector("#sortByArtistNameAToZ").addEventListener("click", () => this.sortByArtistNameAToZ())
+    document.querySelector("#sortByArtistNameZToA").addEventListener("click", () => this.sortByArtistNameZToA())
+    document.querySelector("#sortByPriceLowestFirst").addEventListener("click", () => this.sortByPriceLowestFirst())
+    document.querySelector("#sortByPriceHighestFirst").addEventListener("click", () => this.sortByPriceHighestFirst())
+
+    // Create event listeners for any play-button
+    let playLinks = document.querySelectorAll(".fa-play")
+    let data = this.data
+    playLinks.forEach(
+      function (link) {
+        link.addEventListener("click", function (event) {
+          console.log(`Playing ${event.target.id}`)
+          // Retrieve the data for the selected track
+          let myTrack = data.filter(track => track.trackId == event.target.id)
+          // Create an audio player for the selected track
+          document.querySelector("#play").innerHTML = `<audio id="player_${event.target.id}" src="${myTrack[0].previewUrl} "></audio>`
+          document.querySelector(`#player_${event.target.id}`).play()
+        })
+      })
+
+
+    // Create event listeners for any pause button   
+    let pauseLinks = document.querySelectorAll(".fa-pause")
+    pauseLinks.forEach(
+      link => {
+        link.addEventListener("click", () => {
+          //Select and stop the running audio player
+          let sounds = document.querySelector("audio")
+          sounds.pause()
+          console.log("Stop music!")
+        })
+      })
+  }
+
+
+
 
   render() {
     // Out put will hold the complete view
     let output = ""
-
     // Setting up data for our view
-    const header = "<h1>My Tracks</h1>"
-    // template methode accepts data to view and returns html string
-    const template = this.viewData ?
-      this.template(this.viewData) :
-      this.defaultTemplate()
-    const musicListLegend = ` <div class="row tableHead"><div></div>
-      <div>Track Title<button onclick="sortByTrackTitleAToZ()" class="sortByTitle">&darr;</button>
-        <button onclick="sortByTrackTitleZToA()" class="sortByArtist">&uarr;</button></div>
-      <div>Artist Name:
-        <button onclick="sortByArtistNameAToZ()" class="sortByTitle">&darr;</button>
-        <button onclick="sortByArtistNameZToA()" class="sortByArtist">&uarr;</button></div>
-      <div>Price:
-        <button onclick="sortByPriceLowestFirst()" class="sortByArtist">&darr;</button>
-        <button onclick="sortByPriceHighestFirst()" class="sortByArtist">&uarr;</button></div>
-        <div>Preview</div>
-        </div>`
+    const header = `<h1>My Tracks</h1><h2>The sound of ${this.search}</h2>`
+    const template = this.template(this.viewData);
+    const musicListLegend = ` 
+    <div class="row tableHead">
+      <div></div>
+      <div>
+        Track Title 
+        <i class="fas fa-caret-down" id="sortByTitleAToZ"></i>
+        <i class="fas fa-caret-up" id="sortByTitleZToA"></i>
+      </div>
+      <div>
+        Artist Name:
+        <i class="fas fa-caret-down" id="sortByArtistNameAToZ" ></i>
+        <i class="fas fa-caret-up" id="sortByArtistNameZToA" ></i>
+      </div>
+      <div>
+        Price:
+        <i class="fas fa-caret-down" id="sortByPriceLowestFirst"></i>
+        <i class="fas fa-caret-up" id="sortByPriceHighestFirst"></i>
+      </div>
+      <div>Preview</div>
+    </div>`
     // Adding data in to our view !Order Matters!
     output += header
     output += "<p>Data from iTunes</p>"
@@ -88,59 +193,9 @@ class TrackList {
     output += template
     // Assinging view in to innerHTML of our domElement form the constructor
     this.container.innerHTML = output
+    // Add EventLiseners
+    this.addEventListeners()
   }
 }
 
-const myTrackList = new TrackList("#tracks")
-
-// input changes
-defineSearch = () => {
-  var search = document.getElementById('musicSearch').value;
-  console.log(search)
-  const url = `https://dci-fbw12-search-itunes.now.sh/?term=${search}`
-  const xhr = new XMLHttpRequest()
-  xhr.open("GET", url, true)
-  xhr.responseType = "json"
-  xhr.onload = function () {
-    var jsonResponse = xhr.response
-    console.log(jsonResponse.results)
-    myTrackList.updateData(jsonResponse.results)
-    myTrackList.data = jsonResponse.results
-    myTrackList.viewData = jsonResponse.results
-    myTrackList.render()
-  }
-  xhr.send(null)
-
-  // do something with jsonResponse
-}
-
-
-sortByPriceLowestFirst = () => {
-  myTrackList.viewData.sort((a, b) => a.trackPrice - b.trackPrice);
-  myTrackList.render()
-}
-
-sortByPriceHighestFirst = () => {
-  myTrackList.viewData.sort((a, b) => b.trackPrice - a.trackPrice);
-  myTrackList.render()
-}
-
-sortByTrackTitleAToZ = () => {
-  myTrackList.viewData.sort((a, b) => a.trackName > b.trackName ? 1 : a.trackName < b.trackName ? -1 : 0);
-  myTrackList.render()
-}
-
-sortByTrackTitleZToA = () => {
-  myTrackList.viewData.sort((a, b) => b.trackName > a.trackName ? 1 : b.trackName < a.trackName ? -1 : 0);
-  myTrackList.render()
-}
-
-sortByArtistNameAToZ = () => {
-  myTrackList.viewData.sort((a, b) => a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0);
-  myTrackList.render()
-}
-
-sortByArtistNameZToA = () => {
-  myTrackList.viewData.sort((a, b) => b.artistName > a.artistName ? 1 : b.artistName < a.artistName ? -1 : 0);
-  myTrackList.render()
-}
+const myTrackList = new TrackList("#tracks", "Silence")
