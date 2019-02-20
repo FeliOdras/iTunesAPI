@@ -9,19 +9,6 @@ body {
     font-size: .8rem;
 }
 
-.row {
-    display: flex;
-    flex-direction: row;
-}
-
-.row>* {
-    flex: 1;
-}
-
-.row>img {
-    width: auto;
-}
-
 .fas {
     margin: 0 5px;
 }

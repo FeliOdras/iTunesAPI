@@ -30,8 +30,8 @@ class TrackList {
     return music
       .map(track => {
         return `
-        <div class="row">
-          <div><img src="${track.artworkUrl60}"</img></div>
+        <div class="row tableContent">
+          <div><img src="${track.artworkUrl100}"</img></div>
           <div>${track.trackName}</div>
           <div>${track.artistName}</div>
           <div>${track.trackPrice}</div>
@@ -161,7 +161,7 @@ class TrackList {
     // Out put will hold the complete view
     let output = ""
     // Setting up data for our view
-    const header = `<h1>My Tracks</h1><h2>The sound of ${this.search}</h2>`
+    const header = `<h1>The sound of ${this.search}</h1>`
     const template = this.template(this.viewData);
     const musicListLegend = ` 
     <div class="row tableHead">
