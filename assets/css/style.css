@@ -67,7 +67,8 @@ h1 {
   transition: all .5s; }
   @media screen and (max-width: 560px) {
     .row.tableContent {
-      flex-direction: column; } }
+      flex-direction: column;
+      padding: 10px; } }
   .row * {
     flex: 1;
     align-self: center; }

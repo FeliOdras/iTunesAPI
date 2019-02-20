@@ -31,7 +31,7 @@ class TrackList {
       .map(track => {
         return `
         <div class="row tableContent">
-          <div><div class="label">Album Cover </div><img src="${track.artworkUrl100}"</img></div>
+          <div><div class="label"> </div><img src="${track.artworkUrl100}"</img></div>
           <div><div class="label">Track Title: </div>${track.trackName}</div>
           <div><div class="label">Artist Name: </div>${track.artistName}</div>
           <div><div class="label">Price: </div>${track.trackPrice}</div>
