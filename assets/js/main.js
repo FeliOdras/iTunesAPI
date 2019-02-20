@@ -31,11 +31,11 @@ class TrackList {
       .map(track => {
         return `
         <div class="row tableContent">
-          <div><img src="${track.artworkUrl100}"</img></div>
-          <div>${track.trackName}</div>
-          <div>${track.artistName}</div>
-          <div>${track.trackPrice}</div>
-          <div>
+          <div><div class="label">Album Cover </div><img src="${track.artworkUrl100}"</img></div>
+          <div><div class="label">Track Title: </div>${track.trackName}</div>
+          <div><div class="label">Artist Name: </div>${track.artistName}</div>
+          <div><div class="label">Price: </div>${track.trackPrice}</div>
+          <div><div class="label">Preview: </div>
             <i class="fas fa-play" id="${track.trackId}"></i>
             <i class="fas fa-pause" id="${track.trackId}"></i>
           </div>
@@ -181,7 +181,7 @@ class TrackList {
         <i class="fas fa-caret-down" id="sortByPriceLowestFirst"></i>
         <i class="fas fa-caret-up" id="sortByPriceHighestFirst"></i>
       </div>
-      <div>Preview</div>
+      <div class="preview">Preview</div>
     </div>`
     // Adding data in to our view !Order Matters!
     output += header
