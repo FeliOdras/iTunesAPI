@@ -16,6 +16,9 @@ body {
 .fas {
   margin: 0 5px; }
 
+p {
+  margin: 5px 0; }
+
 #sortAndFilter {
   text-align: right;
   margin: 4px; }
@@ -23,12 +26,14 @@ body {
     margin: 3px;
     font-size: .7rem; }
 
+h1 {
+  padding: 8px 0;
+  font-size: 1.6rem; }
+
 .tableHead {
   font-weight: bold;
   padding-bottom: 10px;
-  border-bottom: 1px dotted #999;
-  color: #111;
-  background-color: #aaa; }
+  border-top: 1px dotted #999; }
   .tableHead .fas {
     font-size: 1.2rem;
     margin: 0 2px; }
