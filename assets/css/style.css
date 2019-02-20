@@ -35,12 +35,23 @@ h1 {
     color: hotpink;
     font-size: 1.4rem; }
 
-.tableHead {
+.tableHead.row {
   font-weight: bold;
   padding-bottom: 10px;
   border-top: 1px dotted #999;
   color: hotpink; }
-  .tableHead .fas {
+  @media screen and (max-width: 560px) {
+    .tableHead.row {
+      display: inline;
+      border-top: none; }
+      .tableHead.row:before {
+        content: "Sort by:";
+        color: #fff;
+        padding: 5px; }
+      .tableHead.row div {
+        display: inline-block;
+        padding: 15px 8px; } }
+  .tableHead.row .fas {
     font-size: 1.2rem;
     margin: 0 2px;
     opacity: .5; }
@@ -49,6 +60,9 @@ h1 {
   display: flex;
   flex-direction: row;
   transition: all .5s; }
+  @media screen and (max-width: 560px) {
+    .row {
+      flex-direction: column; } }
   .row * {
     flex: 1;
     align-self: center; }
