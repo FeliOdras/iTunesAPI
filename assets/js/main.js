@@ -157,9 +157,6 @@ class TrackList {
       })
   }
 
-
-
-
   render() {
     // Out put will hold the complete view
     let output = ""
