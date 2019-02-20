@@ -74,32 +74,32 @@ class TrackList {
     this.modViewData(newData)
   }
 
-  sortByPriceLowestFirst = () => {
+  sortByPriceLowestFirst() {
     myTrackList.viewData.sort((a, b) => a.trackPrice - b.trackPrice);
     myTrackList.render()
   }
 
-  sortByPriceHighestFirst = () => {
+  sortByPriceHighestFirst() {
     myTrackList.viewData.sort((a, b) => b.trackPrice - a.trackPrice);
     myTrackList.render()
   }
 
-  sortByTrackTitleAToZ = () => {
+  sortByTrackTitleATo() {
     myTrackList.viewData.sort((a, b) => a.trackName > b.trackName ? 1 : a.trackName < b.trackName ? -1 : 0);
     myTrackList.render()
   }
 
-  sortByTrackTitleZToA = () => {
+  sortByTrackTitleZToA() {
     myTrackList.viewData.sort((a, b) => b.trackName > a.trackName ? 1 : b.trackName < a.trackName ? -1 : 0);
     myTrackList.render()
   }
 
-  sortByArtistNameAToZ = () => {
+  sortByArtistNameAToZ() {
     myTrackList.viewData.sort((a, b) => a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0);
     myTrackList.render()
   }
 
-  sortByArtistNameZToA = () => {
+  sortByArtistNameZToA() {
     myTrackList.viewData.sort((a, b) => b.artistName > a.artistName ? 1 : b.artistName < a.artistName ? -1 : 0);
     myTrackList.render()
   }
