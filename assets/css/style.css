@@ -44,13 +44,18 @@ h1 {
     .tableHead.row {
       display: inline;
       border-top: none; }
+      .tableHead.row .preview {
+        display: none; }
       .tableHead.row:before {
         content: "Sort by:";
         color: #fff;
         padding: 5px; }
       .tableHead.row div {
         display: inline-block;
-        padding: 15px 8px; } }
+        padding: 15px 8px;
+        width: auto; }
+        .tableHead.row div * {
+          width: auto; } }
   .tableHead.row .fas {
     font-size: 1.2rem;
     margin: 0 2px;
@@ -61,14 +66,34 @@ h1 {
   flex-direction: row;
   transition: all .5s; }
   @media screen and (max-width: 560px) {
-    .row {
+    .row.tableContent {
       flex-direction: column; } }
   .row * {
     flex: 1;
     align-self: center; }
+    @media screen and (max-width: 560px) {
+      .row * {
+        display: inline-block;
+        flex-direction: row;
+        width: 100%; }
+        .row * i {
+          width: auto; } }
+    .row * .label {
+      display: none; }
+      @media screen and (max-width: 560px) {
+        .row * .label {
+          color: hotpink;
+          font-weight: bold;
+          margin: 5px;
+          width: 30%;
+          display: inline-block; } }
   .row img {
     width: auto;
     max-width: 40px; }
+    @media screen and (max-width: 560px) {
+      .row img {
+        max-width: 100px;
+        width: auto; } }
   .row.tableContent:nth-child(even) {
     color: #888;
     background-color: #444; }

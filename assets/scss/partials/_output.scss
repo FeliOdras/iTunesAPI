@@ -8,6 +8,10 @@
         display: inline;
         border-top: none;
 
+        .preview {
+            display: none;
+        }
+
         &:before {
             content: "Sort by:";
             color: #fff;
@@ -17,6 +21,11 @@
         div {
             display: inline-block;
             padding: 15px 8px;
+            width: auto;
+
+            * {
+                width: auto;
+            }
         }
     }
 
@@ -33,17 +42,46 @@
     transition: all .5s;
 
     @media screen and (max-width: 560px) {
-        flex-direction: column;
+        &.tableContent {
+            flex-direction: column;
+        }
     }
 
     * {
         flex: 1;
         align-self: center;
+
+        @media screen and (max-width: 560px) {
+            display: inline-block;
+            flex-direction: row;
+            width: 100%;
+
+            i {
+                width: auto;
+            }
+        }
+
+        .label {
+            display: none;
+
+            @media screen and (max-width: 560px) {
+                color: hotpink;
+                font-weight: bold;
+                margin: 5px;
+                width: 30%;
+                display: inline-block;
+            }
+        }
     }
 
     img {
         width: auto;
         max-width: 40px;
+
+        @media screen and (max-width: 560px) {
+            max-width: 100px;
+            width: auto;
+        }
     }
 
     &.tableContent {
