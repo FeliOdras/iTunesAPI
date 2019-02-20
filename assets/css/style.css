@@ -26,6 +26,13 @@ body {
 .fas {
   margin: 0 5px; }
 
+#sortAndFilter {
+  text-align: right;
+  margin: 4px; }
+  #sortAndFilter input {
+    margin: 3px;
+    font-size: .7rem; }
+
 .tableHead {
   font-weight: bold;
   padding-bottom: 10px;
