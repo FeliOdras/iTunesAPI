@@ -161,7 +161,7 @@ class TrackList {
     // Out put will hold the complete view
     let output = ""
     // Setting up data for our view
-    const header = `<h1>The sound of ${this.search}</h1>`
+    const header = `<h1><i class="fas fa-headphones-alt"></i> The sound of ${this.search} </h1>`
     const template = this.template(this.viewData);
     const musicListLegend = ` 
     <div class="row tableHead">

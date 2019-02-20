@@ -2,10 +2,12 @@
     font-weight: bold;
     padding-bottom: 10px;
     border-top: 1px dotted #999;
+    color: hotpink;
 
     .fas {
         font-size: 1.2rem;
         margin: 0 2px;
+        opacity: .5;
     }
 }
 
@@ -45,4 +47,8 @@
             }
         }
     }
+}
+
+#tracks {
+    margin-bottom: 20px;
 }
