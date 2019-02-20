@@ -74,7 +74,6 @@ h1 {
     align-self: center; }
     @media screen and (max-width: 560px) {
       .row * {
-        display: inline-block;
         flex-direction: row;
         width: 100%; }
         .row * i {
