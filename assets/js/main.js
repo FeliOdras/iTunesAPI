@@ -6,20 +6,19 @@ class TrackList {
   // Creating our Class
   constructor(domSelector, search) {
     // Getting a domelement
-    this.container = document.querySelector(domSelector)
+    this.container = document.querySelector(domSelector);
     // Search
-    this.search = search
+    this.search = search;
     // Data source
-    this.url = `https://dci-fbw12-search-itunes.now.sh/?term=`
-    this.media = "music"
+    this.url = `https://dci-fbw12-search-itunes.now.sh/?term=`;
+    this.media = "music";
     // Search Tracks
-    this.searchTracks()
+    this.searchTracks();
   }
 
-
   modViewData(newData) {
-    this.viewData = newData
-    this.render()
+    this.viewData = newData;
+    this.render();
   }
 
   template(music) {
@@ -31,7 +30,9 @@ class TrackList {
       .map(track => {
         return `
         <div class="row tableContent">
-          <div><div class="label"> </div><img src="${track.artworkUrl100}"</img></div>
+          <div><div class="label"> </div><img src="${
+            track.artworkUrl100
+          }"</img></div>
           <div><div class="label">Track Title: </div>${track.trackName}</div>
           <div><div class="label">Artist Name: </div>${track.artistName}</div>
           <div><div class="label">Price: </div>${track.trackPrice}</div>
@@ -40,128 +41,152 @@ class TrackList {
             <i class="fas fa-pause" id="${track.trackId}"></i>
           </div>
         </div>
-    `
+    `;
       })
-      .join("")
+      .join("");
   }
 
   updateData(data) {
     // Store my data
-    this.data = data
+    this.data = data;
     // Represents the currently displayed data
-    this.viewData = data
-    this.render()
+    this.viewData = data;
+    this.render();
   }
 
   // Search
   searchTracks() {
-    const searchUrl = `${this.url}${this.search}&media=${this.media}`
+    const searchUrl = `${this.url}${this.search}&media=${this.media}`;
     fetch(searchUrl)
       .then(response => {
-        return response.json()
-      }).then((data) => {
-        this.data = data.results
-        this.modViewData(data.results)
+        return response.json();
       })
-      .catch(function (err) {
-        console.log("Something went wrong!", err)
+      .then(data => {
+        this.data = data.results;
+        this.modViewData(data.results);
       })
+      .catch(function(err) {
+        console.log("Something went wrong!", err);
+      });
   }
 
   // Filter
   filterTracks(search) {
-    const newData = this.data.filter(track => track.artistName.toLowerCase().includes(search.toLowerCase()) || track.trackName.toLowerCase().includes(search.toLowerCase()))
-    this.modViewData(newData)
+    const newData = this.data.filter(
+      track =>
+        track.artistName.toLowerCase().includes(search.toLowerCase()) ||
+        track.trackName.toLowerCase().includes(search.toLowerCase())
+    );
+    this.modViewData(newData);
   }
 
   sortByPriceLowestFirst() {
     myTrackList.viewData.sort((a, b) => a.trackPrice - b.trackPrice);
-    myTrackList.render()
+    myTrackList.render();
   }
 
   sortByPriceHighestFirst() {
     myTrackList.viewData.sort((a, b) => b.trackPrice - a.trackPrice);
-    myTrackList.render()
+    myTrackList.render();
   }
 
-  sortByTrackTitleATo() {
-    myTrackList.viewData.sort((a, b) => a.trackName > b.trackName ? 1 : a.trackName < b.trackName ? -1 : 0);
-    myTrackList.render()
+  sortByTrackTitleAToZ() {
+    myTrackList.viewData.sort((a, b) =>
+      a.trackName > b.trackName ? 1 : a.trackName < b.trackName ? -1 : 0
+    );
+    myTrackList.render();
   }
 
   sortByTrackTitleZToA() {
-    myTrackList.viewData.sort((a, b) => b.trackName > a.trackName ? 1 : b.trackName < a.trackName ? -1 : 0);
-    myTrackList.render()
+    myTrackList.viewData.sort((a, b) =>
+      b.trackName > a.trackName ? 1 : b.trackName < a.trackName ? -1 : 0
+    );
+    myTrackList.render();
   }
 
   sortByArtistNameAToZ() {
-    myTrackList.viewData.sort((a, b) => a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0);
-    myTrackList.render()
+    myTrackList.viewData.sort((a, b) =>
+      a.artistName > b.artistName ? 1 : a.artistName < b.artistName ? -1 : 0
+    );
+    myTrackList.render();
   }
 
   sortByArtistNameZToA() {
-    myTrackList.viewData.sort((a, b) => b.artistName > a.artistName ? 1 : b.artistName < a.artistName ? -1 : 0);
-    myTrackList.render()
+    myTrackList.viewData.sort((a, b) =>
+      b.artistName > a.artistName ? 1 : b.artistName < a.artistName ? -1 : 0
+    );
+    myTrackList.render();
   }
 
   addEventListeners() {
-
     // Search
-    document.querySelector("#musicSearch").onkeyup =
-      event => {
-        console.log(`Searching: ${event.target.value}`)
-        this.search = (event.target.value !== "" ? event.target.value : this.search)
-        this.searchTracks()
-      }
+    document.querySelector("#musicSearch").onkeyup = event => {
+      console.log(`Searching: ${event.target.value}`);
+      this.search =
+        event.target.value !== "" ? event.target.value : this.search;
+      this.searchTracks();
+    };
 
-    document.querySelector("#listFilter").onkeyup =
-      event => {
-        console.log(`Filtering: ${event.target.value}`)
-        this.filterTracks(event.target.value)
-      }
+    document.querySelector("#listFilter").onkeyup = event => {
+      console.log(`Filtering: ${event.target.value}`);
+      this.filterTracks(event.target.value);
+    };
 
-    // Sort 
-    document.querySelector("#sortByTitleAToZ").addEventListener("click", () => this.sortByTrackTitleAToZ())
-    document.querySelector("#sortByTitleZToA").addEventListener("click", () => this.sortByTrackTitleZToA())
-    document.querySelector("#sortByArtistNameAToZ").addEventListener("click", () => this.sortByArtistNameAToZ())
-    document.querySelector("#sortByArtistNameZToA").addEventListener("click", () => this.sortByArtistNameZToA())
-    document.querySelector("#sortByPriceLowestFirst").addEventListener("click", () => this.sortByPriceLowestFirst())
-    document.querySelector("#sortByPriceHighestFirst").addEventListener("click", () => this.sortByPriceHighestFirst())
+    // Sort
+    document
+      .querySelector("#sortByTitleAToZ")
+      .addEventListener("click", () => this.sortByTrackTitleAToZ());
+    document
+      .querySelector("#sortByTitleZToA")
+      .addEventListener("click", () => this.sortByTrackTitleZToA());
+    document
+      .querySelector("#sortByArtistNameAToZ")
+      .addEventListener("click", () => this.sortByArtistNameAToZ());
+    document
+      .querySelector("#sortByArtistNameZToA")
+      .addEventListener("click", () => this.sortByArtistNameZToA());
+    document
+      .querySelector("#sortByPriceLowestFirst")
+      .addEventListener("click", () => this.sortByPriceLowestFirst());
+    document
+      .querySelector("#sortByPriceHighestFirst")
+      .addEventListener("click", () => this.sortByPriceHighestFirst());
 
     // Create event listeners for any play-button
-    let playLinks = document.querySelectorAll(".fa-play")
-    let data = this.data
-    playLinks.forEach(
-      function (link) {
-        link.addEventListener("click", function (event) {
-          console.log(`Playing ${event.target.id}`)
-          // Retrieve the data for the selected track
-          let myTrack = data.filter(track => track.trackId == event.target.id)
-          // Create an audio player for the selected track
-          document.querySelector("#play").innerHTML = `<audio id="player_${event.target.id}" src="${myTrack[0].previewUrl} "></audio>`
-          document.querySelector(`#player_${event.target.id}`).play()
-        })
-      })
+    let playLinks = document.querySelectorAll(".fa-play");
+    let data = this.data;
+    playLinks.forEach(function(link) {
+      link.addEventListener("click", function(event) {
+        console.log(`Playing ${event.target.id}`);
+        // Retrieve the data for the selected track
+        let myTrack = data.filter(track => track.trackId == event.target.id);
+        // Create an audio player for the selected track
+        document.querySelector("#play").innerHTML = `<audio id="player_${
+          event.target.id
+        }" src="${myTrack[0].previewUrl} "></audio>`;
+        document.querySelector(`#player_${event.target.id}`).play();
+      });
+    });
 
-
-    // Create event listeners for any pause button   
-    let pauseLinks = document.querySelectorAll(".fa-pause")
-    pauseLinks.forEach(
-      link => {
-        link.addEventListener("click", () => {
-          //Select and stop the running audio player
-          let sounds = document.querySelector("audio")
-          sounds.pause()
-          console.log("Stop music!")
-        })
-      })
+    // Create event listeners for any pause button
+    let pauseLinks = document.querySelectorAll(".fa-pause");
+    pauseLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        //Select and stop the running audio player
+        let sounds = document.querySelector("audio");
+        sounds.pause();
+        console.log("Stop music!");
+      });
+    });
   }
 
   render() {
     // Out put will hold the complete view
-    let output = ""
+    let output = "";
     // Setting up data for our view
-    const header = `<h1><i class="fas fa-headphones-alt"></i> The sound of ${this.search} </h1>`
+    const header = `<h1><i class="fas fa-headphones-alt"></i> The sound of ${
+      this.search
+    } </h1>`;
     const template = this.template(this.viewData);
     const musicListLegend = ` 
     <div class="row tableHead">
@@ -182,17 +207,17 @@ class TrackList {
         <i class="fas fa-caret-up" id="sortByPriceHighestFirst"></i>
       </div>
       <div class="preview">Preview</div>
-    </div>`
+    </div>`;
     // Adding data in to our view !Order Matters!
-    output += header
-    output += "<p>Data from iTunes</p>"
-    output += musicListLegend
-    output += template
+    output += header;
+    output += "<p>Data from iTunes</p>";
+    output += musicListLegend;
+    output += template;
     // Assinging view in to innerHTML of our domElement form the constructor
-    this.container.innerHTML = output
+    this.container.innerHTML = output;
     // Add EventLiseners
-    this.addEventListeners()
+    this.addEventListeners();
   }
 }
 
-const myTrackList = new TrackList("#tracks", "Silence")
+const myTrackList = new TrackList("#tracks", "Silence");
