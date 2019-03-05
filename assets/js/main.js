@@ -65,7 +65,7 @@ class TrackList {
         this.data = data.results;
         this.modViewData(data.results);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log("Something went wrong!", err);
       });
   }
@@ -74,8 +74,8 @@ class TrackList {
   filterTracks(search) {
     const newData = this.data.filter(
       track =>
-        track.artistName.toLowerCase().includes(search.toLowerCase()) ||
-        track.trackName.toLowerCase().includes(search.toLowerCase())
+      track.artistName.toLowerCase().includes(search.toLowerCase()) ||
+      track.trackName.toLowerCase().includes(search.toLowerCase())
     );
     this.modViewData(newData);
   }
@@ -155,8 +155,8 @@ class TrackList {
     // Create event listeners for any play-button
     let playLinks = document.querySelectorAll(".fa-play");
     let data = this.data;
-    playLinks.forEach(function(link) {
-      link.addEventListener("click", function(event) {
+    playLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
         console.log(`Playing ${event.target.id}`);
         // Retrieve the data for the selected track
         let myTrack = data.filter(track => track.trackId == event.target.id);
