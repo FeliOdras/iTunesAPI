@@ -1,8 +1,23 @@
-# The Sound of Classes
+# Sound of Silence - iTunes API
 
-You have a base class that is missing a template.
-Try to fix the class first then add following features:
+_Search Music using iTunes API_
 
-- create a sortPricing methode
-- create a dropdown
-  - with at least 5 filter and/or sorting features
+## Preview
+
+![Preview Image](./assets/img/SoundOfSilence.png)
+
+---
+#### **[Visit Poject Site &raquo;](https://playground.odras.de/TheSoundsOfSilence/)**
+---
+
+## Features
+- Search music by keyword
+- Filter tracks
+- Sort tracks by price, artist name or title
+- Play track preview
+
+## Technologies
+- JavaScript
+- HTML/CSS/SCSS
+- iTunes API
+
